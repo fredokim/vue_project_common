@@ -1,18 +1,18 @@
 <template>
 	<div>
 		<style-select
+			v-if="phoneYn"
 			:label="label"
 			class="inline_block"
-			v-if="phoneYn"
-			:items="cellphone"
+			:items="cellPhone"
 			v-model="phone1"
 			@changeEvent="setValue"
 			:width="`width-28p`"
 		></style-select>
 		<style-select
-        	:label="label"
-			class="inline_block"
 			v-else
+			:label="label"
+			class="inline_block"
 			:items="reginList"
 			v-model="phone1"
 			@changeEvent="setValue"
@@ -60,7 +60,7 @@ export default {
         return {
             cellPhone:phoneList.cellPhone,
             reginList:phoneList.reginList,
-            phone1: "",
+            phone1:"",
             phone2:"",
             phone3:"",
         }
@@ -71,6 +71,7 @@ export default {
         }
     },
 	mounted(){
+
 	},
 	watch:{
 		tel:function(newVal, oldVal){
@@ -80,9 +81,10 @@ export default {
 			}else{
 				def = oldVal
 			}
-			this.phone1 = def.slice(0,3)
-			this.phone2 = def.slice(4,8)
-			this.phone3 = def.slice(9,13)
+			var result = def.split('-');
+			this.phone1 = result[0];
+			this.phone2 = result[1];
+			this.phone3 = result[2];
 		}
 	}
 }
